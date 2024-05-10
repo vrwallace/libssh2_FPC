@@ -1,6 +1,50 @@
+unit Unit3;
+
+{$mode ObjFPC}{$H+}
+
+interface
+
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, Spin,
-  synautil,   blcksock, libssh2, sockets;   
+  synautil,   blcksock, libssh2, sockets;
+
+type
+
+  { Tformblackhole }
+
+  Tformblackhole = class(TForm)
+    Button1: TButton;
+    Button2: TButton;
+    editusername: TEdit;
+    editpassword: TEdit;
+    Editmac: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    SpinEditvlan: TSpinEdit;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    function ConvertMacAddress(const MacAddress: string): string;
+  private
+    Session: PLIBSSH2_SESSION;
+    Socket: Integer;
+    Channel: PLIBSSH2_CHANNEL;
+    Commands: TStringList;
+    Response: string;
+    procedure ConnectSSH;
+    procedure DisconnectSSH;
+    procedure ExecuteCommands;
+  public
+    { Public declarations }
+  end;
+
+var
+  formblackhole: Tformblackhole;
+
+implementation
+
+{$R *.lfm}                     
 
   procedure Tformblackhole.Button1Click(Sender: TObject);
 var
@@ -35,6 +79,41 @@ begin
       ShowMessage('Error: ' + E.Message);
   end;
 end;       
+
+procedure Tformblackhole.Button2Click(Sender: TObject);
+var
+  MacAddress, VlanID: string;
+begin
+  // Assign values to MacAddress and VlanID based on user input
+  MacAddress := ConvertMacAddress(Editmac.Text);
+  VlanID := IntToStr(SpinEditvlan.Value);
+
+  // Initialize the list of commands
+  Commands := TStringList.Create;
+  Commands.Add('system-view');
+  Commands.Add('mac-address blackhole ' + MacAddress + ' vlan ' + VlanID);
+  Commands.Add('quit');
+  Commands.Add('save');
+   Commands.Add('y');
+  Commands.Add('');
+   Commands.Add('y');
+  Commands.Add('');
+
+
+  try
+    // Connect to the SSH server
+    ConnectSSH;
+
+    // Execute commands
+    ExecuteCommands;
+
+    // Disconnect from the SSH server
+    DisconnectSSH;
+  except
+    on E: Exception do
+      ShowMessage('Error: ' + E.Message);
+  end;
+end;              
 
 procedure Tformblackhole.ConnectSSH;
 var
@@ -203,4 +282,5 @@ begin
     if (i = 4) or (i = 8) then
       Result := Result + '-';
   end;
-end;                                             
+end;   
+end.
