@@ -2,6 +2,8 @@ Free pascal conversion of the header file based on an older file (libssh2.pas) u
 
 libssh2.dll 1.11
 
+You will also need to load the synapse package.
+
 To get the binary for libssh2 from Microsoft, you can follow these steps:
 
 Visit the official Microsoft vcpkg repository on GitHub: https://github.com/microsoft/vcpkg
