@@ -1,2 +1,0 @@
-HVHeaps.pas Note: Replaced unit "Windows" with "LCLIntf, LCLType, LMessages" in uses section.
- : Conversion Ready.
