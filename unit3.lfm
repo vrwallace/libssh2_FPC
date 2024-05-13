@@ -1,0 +1,94 @@
+object formblackhole: Tformblackhole
+  Left = 2515
+  Height = 216
+  Top = 588
+  Width = 261
+  BorderStyle = bsSingle
+  Caption = 'Blackhole'
+  ClientHeight = 216
+  ClientWidth = 261
+  Position = poDesktopCenter
+  LCLVersion = '3.2.0.0'
+  object Label1: TLabel
+    Left = 16
+    Height = 15
+    Top = 16
+    Width = 58
+    Caption = 'User Name'
+  end
+  object editusername: TEdit
+    Left = 88
+    Height = 23
+    Top = 16
+    Width = 161
+    TabOrder = 0
+    Text = 'admin'
+  end
+  object Label2: TLabel
+    Left = 16
+    Height = 15
+    Top = 56
+    Width = 50
+    Caption = 'Password'
+  end
+  object editpassword: TEdit
+    Left = 87
+    Height = 23
+    Top = 56
+    Width = 161
+    EchoMode = emPassword
+    PasswordChar = '*'
+    TabOrder = 1
+    Text = 'admin'
+    OnChange = editpasswordChange
+  end
+  object Button1: TButton
+    Left = 16
+    Height = 25
+    Top = 168
+    Width = 99
+    Caption = 'Un-Blackhole'
+    TabOrder = 2
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 150
+    Height = 25
+    Top = 168
+    Width = 99
+    Caption = 'Blackhole'
+    TabOrder = 3
+    OnClick = Button2Click
+  end
+  object Label3: TLabel
+    Left = 16
+    Height = 15
+    Top = 136
+    Width = 30
+    Caption = 'VLAN'
+  end
+  object SpinEditvlan: TSpinEdit
+    Left = 88
+    Height = 23
+    Top = 136
+    Width = 80
+    MinValue = 1
+    TabOrder = 4
+    Value = 1
+  end
+  object Label4: TLabel
+    Left = 16
+    Height = 15
+    Top = 96
+    Width = 27
+    Caption = 'MAC'
+  end
+  object Editmac: TEdit
+    Left = 88
+    Height = 23
+    Top = 96
+    Width = 160
+    TabOrder = 5
+    Text = '20-00-00-00-00-00'
+  end
+end
